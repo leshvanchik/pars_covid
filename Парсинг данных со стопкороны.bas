@@ -8,12 +8,12 @@ Dim i As Date
 i = Date
 Dim URL, Kurs, Purs, Txt, a, b, c, d, y, z As String
 
-z = ThisWorkbook.Worksheets("Свод").Cells(4, 10)
-y = ThisWorkbook.Worksheets("Свод").Cells(8, 10)
-a = Dir(z & "*РПН*.xlsx")
-b = z & "Оперативный мониторинг готовности региональных систем здравоохранения к госпитализации больных пневмонией " & i - 2 & ".xlsx"
-c = Dir(z & "*за*.xlsx")
-d = z & "Доступность лабораторий и тестов " & i - 1 & ".xlsx"
+z = ThisWorkbook.Worksheets("РЎРІРѕРґ").Cells(4, 10)
+y = ThisWorkbook.Worksheets("РЎРІРѕРґ").Cells(8, 10)
+a = Dir(z & "*Р РџРќ*.xlsx")
+b = z & "РћРїРµСЂР°С‚РёРІРЅС‹Р№ РјРѕРЅРёС‚РѕСЂРёРЅРі РіРѕС‚РѕРІРЅРѕСЃС‚Рё СЂРµРіРёРѕРЅР°Р»СЊРЅС‹С… СЃРёСЃС‚РµРј Р·РґСЂР°РІРѕРѕС…СЂР°РЅРµРЅРёСЏ Рє РіРѕСЃРїРёС‚Р°Р»РёР·Р°С†РёРё Р±РѕР»СЊРЅС‹С… РїРЅРµРІРјРѕРЅРёРµР№ " & i - 2 & ".xlsx"
+c = Dir(z & "*Р·Р°*.xlsx")
+d = z & "Р”РѕСЃС‚СѓРїРЅРѕСЃС‚СЊ Р»Р°Р±РѕСЂР°С‚РѕСЂРёР№ Рё С‚РµСЃС‚РѕРІ " & i - 1 & ".xlsx"
 
 t = DateDiff("s", "01.01.1970 03:00:00", Now)
 URL = "https://yastatic.net/s3/milab/2020/podomam/data/index_data.json?ts=" & t
@@ -23,15 +23,15 @@ Set XMLHTTP = CreateObject("MSXML2.XMLHTTP")
     myBook = ThisWorkbook.Name
     loadBook = Dir(z & a)
     GetObject (z & a)
-    k = ThisWorkbook.Worksheets("Летал_Темп_Заболеваемость СПб").Cells(Rows.Count, 1).End(xlUp).Row
-    With Workbooks(myBook).Worksheets("Летал_Темп_Заболеваемость СПб")
+    k = ThisWorkbook.Worksheets("Р›РµС‚Р°Р»_РўРµРјРї_Р—Р°Р±РѕР»РµРІР°РµРјРѕСЃС‚СЊ РЎРџР±").Cells(Rows.Count, 1).End(xlUp).Row
+    With Workbooks(myBook).Worksheets("Р›РµС‚Р°Р»_РўРµРјРї_Р—Р°Р±РѕР»РµРІР°РµРјРѕСЃС‚СЊ РЎРџР±")
     .Range("B" & k + 1) = Workbooks(loadBook).Worksheets(1).Range("C14").Value
     .Range("C" & k + 1) = Workbooks(loadBook).Worksheets(1).Range("B14").Value
     .Range("D" & k + 1) = Workbooks(loadBook).Worksheets(1).Range("D14").Value
     .Range("E" & k + 1) = Workbooks(loadBook).Worksheets(1).Range("E14").Value
 
     .Range("A" & k + 1) = i
-    .Range("F" & k & ":J" & k).Copy ThisWorkbook.Worksheets("Летал_Темп_Заболеваемость СПб").Range("F" & k & ":J" & k).Offset(1, 0)
+    .Range("F" & k & ":J" & k).Copy ThisWorkbook.Worksheets("Р›РµС‚Р°Р»_РўРµРјРї_Р—Р°Р±РѕР»РµРІР°РµРјРѕСЃС‚СЊ РЎРџР±").Range("F" & k & ":J" & k).Offset(1, 0)
     .Range("B" & k + 1).Copy ThisWorkbook.Worksheets("Rt").Range("C" & k)
     End With
     Workbooks(loadBook).Close (False)
@@ -42,20 +42,20 @@ XMLHTTP.SEND
 If XMLHTTP.Status = 200 Then
     Txt = XMLHTTP.responseText
     
-    n = InStr(1, Txt, "Екатеринбург") - 19
+    n = InStr(1, Txt, "Р•РєР°С‚РµСЂРёРЅР±СѓСЂРі") - 19
     g = InStr(n - 18, Txt, ",""diff")
     Kurs = Mid(Txt, n, g - n)
     Kurs = Replace(Replace(Kurs, ".", ","), ":", "")
     r = Kurs
     ThisWorkbook.Worksheets("Rt").Range("E" & k) = r
 
-    h = InStr(1, Txt, "Екатеринбург") - 41
+    h = InStr(1, Txt, "Р•РєР°С‚РµСЂРёРЅР±СѓСЂРі") - 41
     j = InStr(h, Txt, ",""value")
     Purs = Mid(Txt, h, j - h)
     Purs = Replace(Replace(Purs, ":", ""), """", "")
-    MsgBox "Индекс самоизоляции вставлен за " & Purs
+    MsgBox "РРЅРґРµРєСЃ СЃР°РјРѕРёР·РѕР»СЏС†РёРё РІСЃС‚Р°РІР»РµРЅ Р·Р° " & Purs
 Else
-    MsgBox "Отсутствует интернет-соединение..."
+    MsgBox "РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РёРЅС‚РµСЂРЅРµС‚-СЃРѕРµРґРёРЅРµРЅРёРµ..."
 End If
 Set XMLHTTP = Nothing
 
@@ -65,38 +65,38 @@ ThisWorkbook.Worksheets("Rt").Range("D" & k - 1).Copy ThisWorkbook.Worksheets("R
 
     loadBook = Dir(b)
     GetObject (b)
-    k = ThisWorkbook.Worksheets("СКФ").Cells(Rows.Count, 1).End(xlUp).Row
-    With Workbooks(myBook).Worksheets("СКФ")
+    k = ThisWorkbook.Worksheets("РЎРљР¤").Cells(Rows.Count, 1).End(xlUp).Row
+    With Workbooks(myBook).Worksheets("РЎРљР¤")
     .Range("B" & k + 1 & ":U" & k + 1) = Workbooks(loadBook).Worksheets(1).Range("A37:T37").Value
-    .Range("V" & k & ":Z" & k).Copy ThisWorkbook.Worksheets("СКФ").Range("V" & k + 1 & ":Z" & k + 1)
+    .Range("V" & k & ":Z" & k).Copy ThisWorkbook.Worksheets("РЎРљР¤").Range("V" & k + 1 & ":Z" & k + 1)
     .Range("A" & k + 1) = i - 2
     End With
     Workbooks(loadBook).Close (False)
 
     loadBook = Dir(z & c)
     GetObject (z & c)
-    k = ThisWorkbook.Worksheets("ОТ СПб").Cells(Rows.Count, 1).End(xlUp).Row
-    With Workbooks(myBook).Worksheets("ОТ СПб")
+    k = ThisWorkbook.Worksheets("РћРў РЎРџР±").Cells(Rows.Count, 1).End(xlUp).Row
+    With Workbooks(myBook).Worksheets("РћРў РЎРџР±")
     .Range("P" & k + 1) = Workbooks(loadBook).Worksheets(1).Range("V5").Value
     .Range("A" & k + 1) = i
-    .Range("V" & k & ":W" & k).Copy ThisWorkbook.Worksheets("ОТ СПб").Range("V" & k + 1 & ":W" & k + 1)
+    .Range("V" & k & ":W" & k).Copy ThisWorkbook.Worksheets("РћРў РЎРџР±").Range("V" & k + 1 & ":W" & k + 1)
     .Range("R" & k + 1).Formula = "=SUM(R[-1]C, RC[-2])"
     End With
     Workbooks(loadBook).Close (False)
 
     loadBook = Dir(d)
     GetObject (d)
-    m = ThisWorkbook.Worksheets("ОТ РФ").Cells(Rows.Count, 1).End(xlUp).Row
-    Workbooks(myBook).Worksheets("ОТ СПб").Range("B" & k & ":U" & k) = Workbooks(loadBook).Worksheets(1).Range("A35:T35").Value
-    With Workbooks(myBook).Worksheets("ОТ РФ")
+    m = ThisWorkbook.Worksheets("РћРў Р Р¤").Cells(Rows.Count, 1).End(xlUp).Row
+    Workbooks(myBook).Worksheets("РћРў Р Р¤").Range("B" & k & ":U" & k) = Workbooks(loadBook).Worksheets(1).Range("A35:T35").Value
+    With Workbooks(myBook).Worksheets("РћРў Р Р¤")
     .Range("A" & m + 1) = i - 1
     .Range("B" & m + 1 & ":U" & m + 1) = Workbooks(loadBook).Worksheets(1).Range("A4:T4").Value
-    .Range("V" & m & ":W" & m).Copy ThisWorkbook.Worksheets("ОТ РФ").Range("V" & m + 1 & ":W" & m + 1)
+    .Range("V" & m & ":W" & m).Copy ThisWorkbook.Worksheets("РћРў Р Р¤").Range("V" & m + 1 & ":W" & m + 1)
     End With
     Workbooks(loadBook).Close (False)
 
     Workbooks.Add
-    ActiveWorkbook.Worksheets(1).Range("A1:O10") = ThisWorkbook.Worksheets("ЗАГРУЗОЧНЫЙ").Range("B1:P10").Value
+    ActiveWorkbook.Worksheets(1).Range("A1:O10") = ThisWorkbook.Worksheets("Р—РђР“Р РЈР—РћР§РќР«Р™").Range("B1:P10").Value
     ActiveWorkbook.SaveAs Filename:=y & " " & i & ".xlsx"
     ActiveWorkbook.Close (True)
 
